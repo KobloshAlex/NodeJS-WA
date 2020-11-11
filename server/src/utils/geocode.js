@@ -7,7 +7,8 @@ const geocode = (address, callback) => {
     request({url, json: true}, (error, {body}) => {
         if (error) {
             callback('unable to retrieve api.weatherstack.com')
-
+        } else if (body.features.length === 0) {
+            callback('unable to find location')
         } else {
             callback(undefined, {
                 latitude: body.features[0].center[1],
